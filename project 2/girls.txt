@@ -1,0 +1,22 @@
+<girls>
+	<girl>
+		<name>Nancy</name>
+		<prefer>John Brian Stephen Robert George</prefer>
+	</girl>
+	<girl>
+		<name>Joyce</name>
+		<prefer>George John Stephen Robert Brian</prefer>
+	</girl>
+	<girl>
+		<name>Patricia</name>
+		<prefer>George Brian Robert Stephen John</prefer>
+	</girl>
+	<girl>
+		<name>Anne</name>
+		<prefer>George Stephen John Brian Robert</prefer>
+	</girl>
+	<girl>
+		<name>Susan</name>
+		<prefer>Brian George Stephen John Robert</prefer>
+	</girl>
+</girls>

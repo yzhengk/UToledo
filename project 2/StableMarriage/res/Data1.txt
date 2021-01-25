@@ -1,0 +1,13 @@
+4
+1 2 3 4
+A B C D
+// Preferences Men: 
+1: B A D C
+2: A B C D
+3: B C A D
+4: A D B C
+ // Preferences Women:
+A: 1 2 3 4
+B: 2 1 4 3
+C: 3 2 4 1
+D: 4 2 3 1 

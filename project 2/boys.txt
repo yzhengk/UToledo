@@ -1,0 +1,22 @@
+<boys>
+	<boy>
+		<name>John</name>
+		<prefer>Susan Joyce Nancy Patricia Anne</prefer>
+	</boy>
+	<boy>
+		<name>Robert</name>
+		<prefer>Nancy Anne Joyce Susan Patricia</prefer>
+	</boy>
+	<boy>
+		<name>Brian</name>
+		<prefer>Patricia Susan Joyce Anne Nancy</prefer>
+	</boy>
+	<boy>
+		<name>Stephen</name>
+		<prefer>Joyce Anne Susan Nancy Patricia</prefer>
+	</boy>
+	<boy>
+		<name>George</name>
+		<prefer>Nancy Joyce Patricia Susan Anne</prefer>
+	</boy>
+</boys>
