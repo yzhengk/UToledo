@@ -1,0 +1,658 @@
+package com.stablemarriage;
+
+import java.util.ArrayList;
+import java.util.List;
+
+
+public class Person {
+	private String name;
+	private String partner;
+	//private Integer priority;
+	private Integer number;//»
+	private String[] preferences;
+	private Integer beProposed; 
+	private Integer propose;   
+	Person()
+	{}
+	Person(String name, int num, String[] nameList)
+	{
+		this.name = name;
+		this.number = num;
+		preferences = new String[num];
+		for(int i = 0; i < num; i++)
+			preferences[i] = nameList[i];
+		beProposed = 0;
+		propose = 0;
+	}
+
+	
+	public String getName()
+	{
+		return this.name;
+	}
+	
+	public void setPartnerName(String name)
+	{
+		this.partner = name;
+	}
+	
+	public void setPriorityIndex(Integer priority)
+	{
+		this.priority = priority;
+	}
+	
+	public String getPartnerName()
+	{
+		return this.partner;
+	}
+	
+	public boolean haveNext()
+	{
+		if(this.beProposed < this.number)
+			return true;
+		else
+			return false;
+	}
+	
+	public void addProposedTime()
+	{
+		if(this.beProposed < this.number)
+			this.beProposed++;
+	}
+	
+	
+	public List<String> getPreferences()
+	{
+		List<String> s = new ArrayList<String>();
+		for(int i = 0; i < this.preferences.length; i++)
+			s.add(preferences[i]);
+		return s;
+	}
+	
+	public String getNextWomen()
+	{
+		//if(this.propose < this.number)
+			return this.preferences[this.propose++];
+		//else
+			//return null;
+	}
+
+}
+
+
+
+package com.stablemarriage;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class marriage {
+
+
+	/*public static void main(String[] args) 
+	{
+		list boy = new list ("boys.txt");
+		
+		System.out.println();
+		
+		list girl = new list ("girls.txt");
+		
+		System.out.println(boy.capacity);
+		
+	}*/
+
+}
+/*
+While  ¥Ê‘⁄M÷–¥Ê‘⁄µ•…Ìƒ––‘m_i
+      ‘⁄m_iªπ√ª«Ûπ˝ªÈµƒ≈Æ–‘÷–—°‘Ò◊ÓŒ™œ≤ª∂µƒ“ª∏ˆf_j«ÛªÈ
+        If  f_j  «µ•…Ìµƒ  Then
+           m_i”Îf_j∂©ªÈ◊È≥…£®m_i,f_j£©
+        Else  f_j“—æ≠∫Õm_k∂©ªÈ◊È≥…£®m_k,f_j£©
+           If  g(f_j,m_k) < g(f_j,m_i) £®º¥f_j∏¸œ≤ª∂m_k£© Then
+              m_iºÃ–¯µ•…Ì
+           Else g(f_j,m_k) > g(f_j,m_i) £®º¥f_j∏¸œ≤ª∂m_i£©
+              m_i”Îf_j∂©ªÈ◊È≥…≈‰∂‘£®m_i,f_j£©
+              m_k±‰≥…µ•…Ì
+           End if
+        End if
+    End while
+*/
+
+
+
+
+
+package com.stablemarriage;
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.Scanner;
+
+public class list 
+{
+	public boy [] BoyList;
+	public girl [] GirlList;
+	public int capacity;
+	public int size;
+
+	int i = 0;
+	int j = 0;
+	
+	public list(String filename)
+	{
+		size = 0;
+		capacity=5; 
+		BoyList = new boy[capacity];
+		GirlList = new girl[capacity];
+        Scanner infile = null;
+        
+        try
+        {
+            infile = new Scanner (new File (filename));
+        }
+        catch (FileNotFoundException x)
+        {
+            System.exit (0);
+        }
+
+        
+        while (infile.hasNext ( ))
+        {
+        	String oneLine = "";
+
+        	oneLine = infile.nextLine ( );
+        	oneLine = oneLine.trim ( );
+        	if (oneLine.equals ("<boys>"))
+	               ;
+        	else if (oneLine.equals ("</boys>"))
+        	return;
+
+        	else if (oneLine.equals ("<boy>"))
+        	{
+        	
+        	   	oneLine = infile.nextLine ( );
+           		oneLine = oneLine.trim ( );
+           		String name = oneLine.substring(6, oneLine.indexOf("</name>"));
+           		//System.out.println(name);
+           		oneLine = infile.nextLine ( );
+           		oneLine = oneLine.trim ( );
+           		String prefer = oneLine.substring(8, oneLine.indexOf("</prefer>"));
+           		//System.out.println(preder);
+           		
+           		boy newBoy = new boy (name, prefer);
+           		System.out.println(newBoy);
+			
+			    BoyList[i]= newBoy;
+			    i++;
+        	}
+        	
+        	if (oneLine.equals ("<girls>"))
+	               ;
+        	else if (oneLine.equals ("</girls>"))
+        		return;
+
+        	else if (oneLine.equals ("<girl>"))
+        	{
+     	
+        	   	oneLine = infile.nextLine ( );
+           		oneLine = oneLine.trim ( );
+           		String name = oneLine.substring(6, oneLine.indexOf("</name>"));
+           		//System.out.println(name);
+           		oneLine = infile.nextLine ( );
+           		oneLine = oneLine.trim ( );
+           		String prefer = oneLine.substring(8, oneLine.indexOf("</prefer>"));
+           		//System.out.println(preder);
+           		
+           		girl newGirl = new girl (name, prefer);
+           		System.out.println(newGirl);
+			
+			    GirlList[j]= newGirl;
+			    j++;
+        	}
+        		
+        }
+        infile.close ( );
+        
+	}
+
+}
+
+
+
+
+package com.stablemarriage;
+public class girl 
+{
+	String name; String prefer;
+	
+	public girl()
+	{
+		name="";
+		prefer="";
+	}
+	
+	public girl (String nName, String nPrefer)
+	{
+		name = nName;
+		prefer = nPrefer;
+	}
+	
+	public String getName ()
+	{
+		return name;
+	}
+	
+	public String getPrefer()
+	{
+		return prefer;
+	}
+	
+	public void setName (String nName)
+	{
+		name = nName;
+	}
+	
+	public void setPrefer (String nPrefer)
+	{
+		prefer = nPrefer;
+	}
+	
+	public void setGirl (String nName, String nPrefer)
+	{
+		name = nName ; 
+		prefer = nPrefer;
+	}
+	
+	
+	public String toString ()
+	{
+		return ("\n"+name + " prefers:" +prefer);
+	}
+}
+
+
+
+
+package com.stablemarriage;
+
+public class boy 
+{
+	String name; String prefer;
+	
+	public boy()
+	{
+		name="";
+		prefer="";
+	}
+	
+	public boy (String nName, String nPrefer)
+	{
+		name = nName;
+		prefer = nPrefer;
+	}
+	
+	public String getName ()
+	{
+		return name;
+	}
+	
+	public String getPrefer()
+	{
+		return prefer;
+	}
+	
+	public void setName (String nName)
+	{
+		name = nName;
+	}
+	
+	public void setPrefer (String nPrefer)
+	{
+		prefer = nPrefer;
+	}
+	
+	public void setBoy (String nName, String nPrefer)
+	{
+		name = nName ; 
+		prefer = nPrefer;
+	}
+	
+	public String toString ()
+	{
+		return ("\n"+name + " prefers:" +prefer);
+	}
+}
+
+
+
+
+
+
+package com.stablemarriage;
+
+public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try { 
+					MainWindow mainWindow = new MainWindow();
+					mainWindow.frmStablemarriageGuiApp.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+
+	
+	public MainWindow() {
+		initialize();
+	}
+
+
+	private void initialize() {
+		frmStablemarriageGuiApp = new JFrame();
+		frmStablemarriageGuiApp.setTitle("StableMarriage GUI App");
+		frmStablemarriageGuiApp.setBounds(100, 100, 624, 590);
+		frmStablemarriageGuiApp.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frmStablemarriageGuiApp.getContentPane().setLayout(null);
+		
+		JPanel panel = new JPanel();
+		panel.setBounds(10, 10, 588, 55);
+		frmStablemarriageGuiApp.getContentPane().add(panel);
+		panel.setLayout(null);
+		
+		JLabel lblNewLabel = new JLabel("Input file name:");
+		lblNewLabel.setBounds(10, 10, 107, 15);
+		panel.add(lblNewLabel);
+		
+		tpFileName = new JTextPane();
+		tpFileName.setText("inputdata.txt");
+		tpFileName.setBackground(new Color(255, 255, 255));
+		tpFileName.setBounds(113, 10, 307, 21);
+		panel.add(tpFileName);
+		
+		JButton btnOk = new JButton("Check");
+		btnOk.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				getFileData(tpFileName,tpNumber,lbErrorMsg,tpManList,tpWomenList);
+			}
+		});
+		btnOk.setBounds(443, 6, 93, 23);
+		panel.add(btnOk);
+		
+		lbErrorMsg = new JLabel("");
+		lbErrorMsg.setBounds(113, 38, 465, 15);
+		panel.add(lbErrorMsg);
+		
+		JPanel panel_1 = new JPanel();
+		panel_1.setBounds(10, 73, 588, 417);
+		frmStablemarriageGuiApp.getContentPane().add(panel_1);
+		panel_1.setLayout(null);
+		
+		JLabel lblManList = new JLabel("Man List :");
+		lblManList.setBounds(10, 76, 82, 15);
+		panel_1.add(lblManList);
+		
+		JLabel lblNewLabel_1 = new JLabel("Women List :");
+		lblNewLabel_1.setBounds(10, 228, 82, 15);
+		panel_1.add(lblNewLabel_1);
+		
+		JLabel lblNumber = new JLabel("Number :");
+		lblNumber.setBounds(10, 10, 54, 15);
+		panel_1.add(lblNumber);
+		
+		tpNumber = new JTextPane();
+		tpNumber.setEditable(false);
+		tpNumber.setBounds(10, 35, 568, 30);
+		panel_1.add(tpNumber);
+		
+		JScrollPane scrollPane_1 = new JScrollPane();
+		scrollPane_1.setBounds(10, 253, 568, 117);
+		panel_1.add(scrollPane_1);
+		
+		tpWomenList = new JTextPane();
+		scrollPane_1.setViewportView(tpWomenList);
+		tpWomenList.setEditable(false);
+		
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setBounds(10, 101, 568, 117);
+		panel_1.add(scrollPane);
+		
+		tpManList = new JTextPane();
+		scrollPane.setViewportView(tpManList);
+		tpManList.setEditable(false);
+		
+		JButton btnShowMenP = new JButton("show men preferences");
+		
+		btnShowMenP.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				MenPreferencesJFrame  menjf = new MenPreferencesJFrame();
+				menjf.setVisible(true);
+				menjf.showContent(manList);
+			}
+		});
+		btnShowMenP.setBounds(121, 380, 168, 30);
+		panel_1.add(btnShowMenP);
+		
+		JButton btnShowWomenP = new JButton("show women preferences");
+		
+		btnShowWomenP.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				WomenPreferencesJFrame womenjf = new WomenPreferencesJFrame();
+				womenjf.setVisible(true);
+				womenjf.showContent(womenList);
+			}
+		});
+		btnShowWomenP.setBounds(323, 380, 168, 30);
+		panel_1.add(btnShowWomenP);
+		
+		
+		
+		JPanel panel_2 = new JPanel();
+		panel_2.setBounds(10, 500, 588, 42);
+		frmStablemarriageGuiApp.getContentPane().add(panel_2);
+		panel_2.setLayout(null);
+		
+		rdbtnNewRadioButton = new JRadioButton("Men Propose");
+		rdbtnNewRadioButton.setSelected(true);
+		buttonGroup.add(rdbtnNewRadioButton);
+		rdbtnNewRadioButton.setBounds(18, 6, 121, 23);
+		panel_2.add(rdbtnNewRadioButton);
+		
+		JRadioButton rdbtnNewRadioButton_1 = new JRadioButton("Women Propose");
+		buttonGroup.add(rdbtnNewRadioButton_1);
+		rdbtnNewRadioButton_1.setBounds(141, 6, 121, 23);
+		panel_2.add(rdbtnNewRadioButton_1);
+		
+		JButton btnNewButton_1 = new JButton("Run");
+		btnNewButton_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				runResult();
+				
+			}
+		});
+		btnNewButton_1.setBounds(344, 4, 121, 27);
+		panel_2.add(btnNewButton_1);
+	}
+	
+	
+	protected void runResult() {
+		
+		if(rdbtnNewRadioButton.isSelected()){
+			Algorithm.GaleShapley(manList,womenList);
+		}
+		else{
+			Algorithm.GaleShapley(womenList,manList);
+		}
+		ResultJFrame frame = new ResultJFrame();
+		if(rdbtnNewRadioButton.isSelected()){
+			frame.showResult(manList);
+		}
+		else{
+			frame.showResult(womenList);
+		}
+		frame.setVisible(true);
+	}
+
+
+
+
+
+package com.stablemarriage;
+
+import java.util.ArrayList;
+import java.util.List;
+public class algorithm {
+	/**
+	 * Gale-Shapely Algorithm
+	 * @param manList 
+	 * @param womenList 
+	 */
+    /************************** START. ’‚“ª∂Œ «∏¯manList ∫Õ womenList∏≥÷µ  ***********************************/
+	static String Man[] = {"John", "Robert", "Brian", "Stephen", "George"};
+	
+	static String allWomen[] = {"Susan", "Joyce", "Nancy", "Patricia", "Anne",
+				                "Nancy", "Anne", "Joyce", "Susan" ,"Patricia",
+							    "Patricia", "Susan", "Joyce", "Anne", "Nancy",
+				 			    "Joyce","Anne", "Susan", "Nancy", "Patricia",
+							    "Nancy", "Joyce", "Patricia", "Susan", "Anne"};
+	
+	static String Woman[] = {"Nancy", "Joyce", "Patricia", "Anne", "Susan"};
+	
+	static String allMan[] = {"John", "Brian", "Stephen", "Robert", "George",
+					          "George","John",  "Stephen", "Robert","Brian", 
+					          "George","Brian", "Robert","Stephen","John",   
+					          "George","Stephen", "John", "Brian","Robert", 
+					          "Brian", "George","Stephen","John", "Robert"};
+
+	public static List<Person> womenList = new ArrayList<Person>();
+	public static List<Person> manList = new ArrayList<Person>();	
+	public static  void init()
+	{
+		
+		for(int i = 0; i < 5; i++)
+		{
+			String[] s = new String[5];
+			String name = Man[i];
+			int c = 0;
+			for(int j = i*5; j < i*5 + 5; j++)
+				s[c++] = allWomen[j];
+			Person p = new Person(name, 5, s);
+			manList.add(p);			
+		}
+		
+		for(int i = 0; i < 5; i++)
+		{
+			String[] s = new String[5];
+			String name = Woman[i];
+			int c = 0;
+			for(int j = i*5; j < i*5 + 5; j++)
+				s[c++] = allMan[j];
+			Person p = new Person(name, 5, s);
+			womenList.add(p);			
+		}
+	}
+	/***********************************    END   *************************************************************/
+	
+	public static void GaleShapley(List<Person> manList
+			,List<Person> womenList){
+		//Initialize each person to be free
+		Person p;
+		for(int i = 0; i < manList.size(); i++){
+			p = manList.get(i);
+			p.setPartnerName(null);
+			//p.setPriorityIndex(-1);
+		}
+		for(int i = 0; i < womenList.size(); i++){
+			p = womenList.get(i);
+			p.setPartnerName(null);
+			//p.setPriorityIndex(-1);
+		}
+		
+		//if some man is free and hasn't proposed to every woman,hashManFree is true
+		boolean hashManFree = true; 
+		while(hashManFree){
+			hashManFree = false;
+			Person freeMan = null; 
+			//find who man is free and hasn't proposed to every woman
+			for(int i = 0 ;i < manList.size();i++){
+				if(manList.get(i).getPartnerName() == null && manList.get(i).haveNext())
+				{
+					//exist a man is free and hasn't proposed to every woman
+					hashManFree = true;
+					freeMan = manList.get(i);//Choose such a man m
+					manList.get(i).addProposedTime(); //‘ˆº”“ª¥Œ’‚∏ˆƒ–»À±ªÕ∆ºˆµƒ¥Œ ˝
+				} 
+			}
+			if(hashManFree){
+				//get the woman on men's list to whom m has not yet proposed
+				String sw = freeMan.getNextWomen();
+				Person women = null;
+				for(int i = 0; i < womenList.size(); i++)
+					if(womenList.get(i).getName() == sw)
+					{
+						women = womenList.get(i);  //ªÒµ√œ¬“ª∏ˆ≈Æ∫¢µƒ–≈œ¢
+						break;
+					}
+				
+				if(freeMan.getName() == "John")
+					System.out.println("john wants " + women.getName());
+					
+				//is women is free
+				if(women.getPartnerName() == null){
+					//System.out.println("remains: " + women.getName());
+					freeMan.setPartnerName(women.getName());
+					women.setPartnerName(freeMan.getName());
+				}
+				else {
+					List<String> womenPreferences = women.getPreferences();
+					// if women prefers this men to her 
+					if(womenPreferences.indexOf(freeMan.getName()) 
+							< womenPreferences.indexOf(women.getPartnerName())){
+						// assign men and women to be engaged, and m' to be free
+						
+						//int oldManIndex = manList.indexOf(new Person(women.getPartnerName()));
+						Person oldMan = null;// = manList.get(oldManIndex);
+						for(int i = 0; i < manList.size(); i++)
+							if(manList.get(i).getName() == women.getPartnerName())
+							{
+								oldMan = manList.get(i);
+								break;
+							}
+						oldMan.setPartnerName(null);
+						freeMan.setPartnerName(women.getName());
+						women.setPartnerName(freeMan.getName());
+					}
+				}
+			}
+		}
+		Person remainMan = null;
+		Person remainWoman = null;
+		for(int i = 0; i < manList.size(); i++)
+			if(manList.get(i).getPartnerName() == null)
+			{
+				remainMan = manList.get(i);
+				break;
+			}
+		
+		for(int i = 0; i < womenList.size(); i++)
+			if(womenList.get(i).getPartnerName() == null)
+			{
+				remainWoman = womenList.get(i);
+				break;
+			}
+		remainMan.setPartnerName(remainWoman.getName());
+		remainWoman.setPartnerName(remainMan.getName());
+	}
+	
+	public static void main(String[] args)
+	{
+		algorithm.init();
+		algorithm.GaleShapley(algorithm.manList, algorithm.womenList);
+		for(int i = 0; i < algorithm.manList.size(); i++)
+		{
+			System.out.print(algorithm.manList.get(i).getName());
+			System.out.println(" " + algorithm.manList.get(i).getPartnerName());
+		}
+	}
+}
